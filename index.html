@@ -6,23 +6,18 @@
 </head>
 
 <body style=’margin : 0px; overflow: hidden;’>
-    <a-scene embedded arjs=’sourceType: webcam;’>
-        <a-marker preset=’hiro’>
-            <!-- Adding an OBJ file to an AR Project-->
-  <a-assets>
-    <a-asset-item id="tree-obj" src="/object/model.obj"></a-asset-item>
-    <a-asset-item id="tree-mtl" src="/object/materials.mtl"></a-asset-item>
-  </a-assets>
-
-  <a-entity obj-model="obj: #tree-obj; mtl: #tree-mtl"></a-entity>
-            
-            
-
-
-        </a-marker>
-        <a-entity camera>
+<a-scene embedded arjs=’sourceType: webcam;’>
+      <a-marker preset=’hiro’>
+        <!-- Adding an OBJ file to an AR Project-->
+        <a-entity 
+            obj-model=”obj: url(object/model.obj); 
+            mtl: url(/object/materials.mtl)”>
         </a-entity>
-    </a-scene>
+              
+      </a-marker>
+  <a-entity camera>
+  </a-entity>
+  </a-scene>
 </body>
 
 </html>
