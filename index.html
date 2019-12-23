@@ -1,33 +1,50 @@
-<!doctype HTML>
 <html>
-    <head>
-        <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
-    </head>
-    <script src="https://aframe.io/releases/0.9.0/aframe.min.js"></script>
-    <script src="https://rawgit.com/jeromeetienne/AR.js/master/aframe/build/aframe-ar.min.js"></script>
-    <script src="https://rawgit.com/donmccurdy/aframe-extras/master/dist/aframe-extras.loaders.min.js"></script>
-    
-    <body style='margin : 0px; overflow: hidden;'>
-        <!-- we add detectionMode and matrixCodeType to tell AR.js to recognize barcode markers -->
-        <a-scene embedded arjs='sourceType: webcam; debugUIEnabled: false; detectionMode: mono_and_matrix; matrixCodeType: 3x3;'>
+
+<head>
+    <meta aframe-injected="" name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,shrink-to-fit=no,user-scalable=no,minimal-ui">
+    <meta aframe-injected="" name="mobile-web-app-capable" content="yes">
+
+    <script src="https://aframe.io/releases/0.7.0/aframe.min.js"></script>
+    <script src="https://cdn.rawgit.com/jeromeetienne/AR.js/1.5.0/aframe/build/aframe-ar.js"></script>
+
+    <div class="AR-tip">
+        <p>This is a AR-pen. To see 3d models use <a style="white-space: nowrap" class="links" target="_blank" href="https://www.google.ru/search?q=hiro+marker&newwindow=1&source=lnms&tbm=isch&sa=X&ved=0ahUKEwiV97CF6LnXAhUHpqQKHSfEBSAQ_AUICigB&biw=1676&bih=855&dpr=2">Hiro-marker</a></p>
+        <a class="gotit" href="#">Got it!</a>
+    </div>
+
+    <div class="btns-wrap">
+        <div class="btn rotate"></div>
+        <div class="btn scale"></div>
+        <div class="btn switch">Kyiv</div>
+    </div>
+
+    <a-scene embedded arjs='trackingMethod: best; sourceType: webcam; debugUIEnabled: false;'>
 
         <a-assets>
-            <a-asset-item id="animated-asset" src="https://raw.githubusercontent.com/nicolocarpignoli/nicolocarpignoli.github.io/master/ar-playground/models/CesiumMan.gltf"></a-asset-item>
+            <a-asset-item id="london-obj" src="https://raw.githubusercontent.com/chrisplowman/3DARJS/master/object/model.obj"></a-asset-item>
+            <a-asset-item id="london-mtl" src="https://raw.githubusercontent.com/chrisplowman/3DARJS/master/object/materials.mtl"></a-asset-item>
         </a-assets>
 
-        <a-marker type='barcode' value='7'>
-            <a-box position='0 0.5 0' color="yellow"></a-box>
-        </a-marker>
+        <a-marker preset="hiro" id="aframe-scene">
 
-        <a-marker id="animated-marker" type='barcode' value='6'>
-            <a-entity
-                gltf-model="#animated-asset"
-                scale="2">
+            <a-entity light="type: hemisphere; color: #fefddd; groundColor: #fefddd; intensity: 1.2"></a-entity>
+
+            <a-entity id="london" rotation="0 -90 0" side="double" position="0.0 0.2 0" scale="0.4 0.4 0.4" obj-model="obj: #london-obj; mtl: #london-mtl">
+                <a-animation attribute="rotation" begin="rotate" end="endRotate" dur="26000" fill="forwards" to="0 270 0" repeat="indefinite" easing="linear">
+                </a-animation>
             </a-entity>
+
+            <a-entity id="kyiv" visible="false" rotation="0 -90 0" side="double" position="0.0 0.2 0" scale="0.4 0.4 0.4" obj-model="obj: #kyiv-obj; mtl: #kyiv-mtl">
+                <a-animation attribute="rotation" begin="rotate" end="endRotate" dur="26000" fill="forwards" to="0 270 0" repeat="indefinite" easing="linear">
+                </a-animation>
+            </a-entity>
+
         </a-marker>
 
-        <!-- use this <a-entity camera> to support multiple-markers, otherwise use <a-marker-camera> instead of </a-marker> -->
         <a-entity camera></a-entity>
-        </a-scene>
+
+    </a-scene>
+
     </body>
+
 </html>
